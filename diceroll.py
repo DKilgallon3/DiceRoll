@@ -8,7 +8,8 @@ import os
 data_file = "dice_rolls.csv"
 
 # Initialize or load data
-if os.path.exists(data_file):
+
+if os.path.exists(data_file) and os.path.getsize(data_file) > 0:
     df = pd.read_csv(data_file)
 else:
     df = pd.DataFrame(columns=["sum"])
@@ -42,3 +43,4 @@ if not df.empty:
     st.write(f"Total Rolls: {len(df)} | Mean: {mean:.2f} | Std Dev: {std:.2f}")
 else:
     st.info("No rolls submitted yet. Be the first!")
+
