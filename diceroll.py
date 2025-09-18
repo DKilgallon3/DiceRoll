@@ -4,6 +4,16 @@ import numpy as np
 import plotly.express as px
 import os
 
+data_file = "dice_rolls.csv"
+
+# Ensure the file exists and has headers
+if not os.path.exists(data_file) or os.path.getsize(data_file) == 0:
+    pd.DataFrame(columns=["sum"]).to_csv(data_file, index=False)
+
+# Now safely read the file
+df = pd.read_csv(data_file)
+
+
 # File to store roll data
 data_file = "dice_rolls.csv"
 
@@ -43,4 +53,5 @@ if not df.empty:
     st.write(f"Total Rolls: {len(df)} | Mean: {mean:.2f} | Std Dev: {std:.2f}")
 else:
     st.info("No rolls submitted yet. Be the first!")
+
 
