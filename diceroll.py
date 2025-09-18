@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -10,18 +11,10 @@ data_file = "dice_rolls.csv"
 if not os.path.exists(data_file) or os.path.getsize(data_file) == 0:
     pd.DataFrame(columns=["sum"]).to_csv(data_file, index=False)
 
-# Now safely read the file
-df = pd.read_csv(data_file)
-
-
-# File to store roll data
-data_file = "dice_rolls.csv"
-
-# Initialize or load data
-
-if os.path.exists(data_file) and os.path.getsize(data_file) > 0:
+# Safely read the file
+try:
     df = pd.read_csv(data_file)
-else:
+except pd.errors.EmptyDataError:
     df = pd.DataFrame(columns=["sum"])
 
 st.title("🎲 Live Dice Roll Distribution")
@@ -53,5 +46,3 @@ if not df.empty:
     st.write(f"Total Rolls: {len(df)} | Mean: {mean:.2f} | Std Dev: {std:.2f}")
 else:
     st.info("No rolls submitted yet. Be the first!")
-
-
